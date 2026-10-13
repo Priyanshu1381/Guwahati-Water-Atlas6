@@ -1,0 +1,370 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#18062c">
+  <meta name="description" content="An interactive remote-sensing project exploring annual and seasonal surface-water patterns around Guwahati, Assam, using JRC Global Surface Water data from 2000 to 2021.">
+  <title>Guwahati Water Atlas | JRC Surface Water 2000–2021</title>
+  <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="#top" aria-label="Guwahati Water Atlas home">
+      <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 40 40"><path d="M20 4C16 11 8 18 8 25a12 12 0 0 0 24 0C32 18 24 11 20 4Z" fill="currentColor"/><path d="M12 25c2 4 5 5 9 4" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/></svg></span>
+      <span><strong>Guwahati</strong><small>WATER ATLAS</small></span>
+    </a>
+    <nav class="main-nav" aria-label="Main navigation">
+      <a href="#problem">Overview</a>
+      <a href="#annual">Animation</a>
+      <a href="#change">Area change</a>
+      <a href="#seasonal">Seasons</a>
+      <a href="#observations">Observations</a>
+      <a href="#discussion">Discussion</a>
+    </nav>
+    <a class="nav-cta" href="#downloads">Explore data <span aria-hidden="true">↗</span></a>
+    <button class="menu-toggle" id="menu-toggle" type="button" aria-expanded="false" aria-label="Open navigation">☰</button>
+  </header>
+
+  <main id="top">
+    <section class="hero section-dark">
+      <div class="hero-orb hero-orb-one"></div><div class="hero-orb hero-orb-two"></div>
+      <div class="hero-inner page-width">
+        <div class="hero-copy">
+          <div class="eyebrow"><span class="eyebrow-dot"></span> REMOTE SENSING · GOOGLE EARTH ENGINE</div>
+          <h1>Reading the changing <span>water landscape</span> of Guwahati.</h1>
+          <p class="hero-lede">A 22-year view of surface-water classes inside the city and across a 10 km surrounding study extent, using JRC Global Surface Water history.</p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="#annual">Explore the maps <span aria-hidden="true">→</span></a>
+          </div>
+          <div class="hero-metrics" aria-label="Project overview">
+            <div><strong>2000–2021</strong><span>Study period</span></div>
+            <div><strong>22 years</strong><span>Annual frames</span></div>
+            <div><strong>3 seasons</strong><span>Summer · Monsoon · Winter</span></div>
+          </div>
+        </div>
+        <div class="hero-visual">
+          <div class="visual-window">
+            <div class="window-top"><div class="window-dots"><i></i><i></i><i></i></div><span>GUWAHATI / WATER CLASSIFICATION</span><span class="live-chip static-chip">STATIC MAP</span></div>
+            <img src="assets/images/guwahati-hero-screenshot.png" alt="Still screenshot of the JRC water-classification map showing Guwahati and surrounding water patterns">
+            <div class="visual-caption"><span><b class="caption-dot dot-blue"></b> Water</span><span><b class="caption-dot dot-cyan"></b> Seasonal water</span><span><b class="caption-dot dot-grey"></b> Not water</span></div>
+          </div>
+          <div class="floating-note"><span class="note-icon">⌁</span><span><strong>Inside + around the city</strong><small>One boundary, two study scopes</small></span></div>
+        </div>
+      </div>
+      <div class="hero-bottom-line"></div>
+    </section>
+
+    <section class="section section-intro" id="problem">
+      <div class="page-width">
+        <div class="section-heading heading-split">
+          <div><p class="section-kicker">01 / THE QUESTION</p><h2>What problem are we trying to understand?</h2></div>
+          <p class="section-intro-text">Surface water is dynamic. A single map can show where water was classified, but a time series helps reveal how the pattern varies across years and seasons.</p>
+        </div>
+        <div class="problem-grid">
+          <article class="problem-main card-soft">
+            <div class="icon-tile icon-purple">⌖</div>
+            <p class="mini-label">PROBLEM STATEMENT</p>
+            <h3>How did surface-water coverage and seasonal persistence vary around Guwahati from 2000 to 2021?</h3>
+            <p>This project uses JRC Global Surface Water annual and monthly histories to map water classes, compare the municipal area with a surrounding 10 km study extent, and examine the differences between annual classifications and seasonal observations.</p>
+          </article>
+          <div class="question-stack">
+            <article class="question-card"><span class="number-pill">01</span><div><h3>Where is water detected?</h3><p>Map non-water, seasonal-water and permanent-water classes across the same geographic frame.</p></div></article>
+            <article class="question-card"><span class="number-pill">02</span><div><h3>How does the pattern vary?</h3><p>Animate the 2000–2021 sequence and compare five-year area snapshots and seasonal summaries.</p></div></article>
+            <article class="question-card"><span class="number-pill">03</span><div><h3>Change in coverage area of no-water, seasonal water and permanent water over the years</h3><p>Compare annual class areas in km² through time, both inside Guwahati and across the wider 10 km study extent.</p></div></article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-extent" id="extent">
+      <div class="page-width">
+        <div class="section-heading">
+          <p class="section-kicker">02 / STUDY AREA</p>
+          <h2>Guwahati, with room to see beyond the boundary.</h2>
+          <p>Guwahati lies in the Brahmaputra Valley beside the Brahmaputra River, within a landscape of river channels, wetlands, low-lying areas and monsoon-fed drainage. Flooding and waterlogging are recognized local concerns by the <a href="https://waterresources.assam.gov.in/portlets/flood-erosion-problems" target="_blank" rel="noopener">Assam Water Resources Department</a> and the <a href="https://gmc.assam.gov.in/frontimpotentdata/flood-free-guwahati" target="_blank" rel="noopener">Guwahati Municipal Corporation</a>. This setting makes it useful to examine how mapped water classes vary from year to year and between seasons.</p>
+        </div>
+        <div class="extent-map-grid">
+          <article class="extent-image-card map-comparison-card">
+            <div class="image-topline"><span class="image-label"><i class="pin-dot"></i> GUWAHATI STUDY AREA</span><span class="image-date">SATELLITE BASE MAP</span></div>
+            <img class="extent-image comparison-map-image" src="assets/images/guwahati-basemap.png" alt="Satellite basemap showing Guwahati's urban footprint and surrounding landscape, with the study boundary outlined in cyan" loading="lazy">
+            <div class="image-footer"><span>Guwahati study boundary shown in cyan</span><span class="coordinate-mark">BASE MAP</span></div>
+          </article>
+          <article class="extent-image-card map-comparison-card">
+            <div class="image-topline"><span class="image-label"><i class="pin-dot"></i> CLASS CHANGE</span><span class="image-date">2000 → 2021</span></div>
+            <a class="transition-map-open" href="assets/images/guwahati-transition-2000-2021.png" target="_blank" rel="noopener" aria-label="Open full-size Guwahati 2000 to 2021 transition map">
+              <img class="extent-image comparison-map-image transition-map-image" src="assets/images/guwahati-transition-2000-2021.png" alt="Transition map comparing annual JRC water classes in Guwahati and the surrounding extent between 2000 and 2021. Different colours show changes between classes; grey indicates no change." loading="lazy">
+            </a>
+            <div class="image-footer"><span>Class transitions between annual maps</span><a class="coordinate-mark" href="assets/images/guwahati-transition-2000-2021.png" target="_blank" rel="noopener">OPEN MAP ↗</a></div>
+          </article>
+        </div>
+        <div class="extent-info-grid">
+          <div class="extent-stat extent-info-card"><span class="stat-symbol">↔</span><div><strong>10 km context</strong><span>The wider map view includes the surrounding area beyond the city boundary.</span></div></div>
+          <div class="extent-stat extent-info-card"><span class="stat-symbol">⌑</span><div><strong>Two study scopes</strong><span>Compare the municipal area with the broader buffered extent.</span></div></div>
+          <div class="note-box study-context"><strong>Why study Guwahati?</strong><p>Guwahati sits beside the Brahmaputra and among river channels, wetlands and low-lying landscapes. Monsoon rainfall and runoff from nearby hills contribute to a setting where water patterns and waterlogging matter for urban planning.</p><p><strong>What this study provides</strong><br>Annual maps, seasonal comparisons and area summaries show how the mapped non-water, seasonal-water and permanent-water classes vary over 2000–2021. The results support visual comparison; they are not, by themselves, a flood-risk model.</p><p class="context-sources">Context sources: <a href="https://waterresources.assam.gov.in/portlets/flood-erosion-problems" target="_blank" rel="noopener">Assam Water Resources</a> · <a href="https://gmc.assam.gov.in/frontimpotentdata/flood-free-guwahati" target="_blank" rel="noopener">Guwahati Municipal Corporation</a></p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="annual">
+      <div class="page-width">
+        <div class="section-heading heading-split">
+          <div><p class="section-kicker">03 / ANNUAL TRANSITIONS</p><h2>Watch the map move through time.</h2></div>
+          <p class="section-intro-text">Both GIFs contain the annual sequence from 2000 to 2021. Use the two views to compare the city-only pattern with the wider surrounding extent.</p>
+        </div>
+        <div class="animation-grid">
+          <article class="animation-card">
+            <div class="card-topline"><span class="small-tag tag-purple">WIDER VIEW</span><span class="frame-count">22 FRAMES · 2 SEC EACH</span></div>
+            <h3>Guwahati + 10 km surrounding extent</h3>
+            <p>The buffered map includes the area around the municipal boundary, allowing river and adjacent surface-water patterns to remain in view.</p>
+            <div class="gif-frame"><img src="assets/images/guwahati_water_2000_2021_10km_buffer.gif" alt="Annual water-class animation for Guwahati plus 10 kilometre surrounding extent, 2000–2021" loading="lazy"></div>
+            <a class="text-link" href="assets/images/guwahati_water_2000_2021_10km_buffer.gif" download>Download buffered GIF <span>↓</span></a>
+          </article>
+          <article class="animation-card">
+            <div class="card-topline"><span class="small-tag tag-cyan">CITY VIEW</span><span class="frame-count">22 FRAMES · 2 SEC EACH</span></div>
+            <h3>Inside Guwahati</h3>
+            <p>The city view focuses on the municipal outline and shows how the classified area within that boundary varies across the same years.</p>
+            <div class="gif-frame"><img src="assets/images/guwahati_water_2000_2021.gif" alt="Annual water-class animation clipped to inside Guwahati, 2000–2021" loading="lazy"></div>
+            <a class="text-link" href="assets/images/guwahati_water_2000_2021.gif" download>Download city GIF <span>↓</span></a>
+          </article>
+        </div>
+        <div class="class-key annual-key">
+          <div class="class-key-head"><div><p class="mini-label">ANNUAL HISTORY</p><h3>What do the map colours mean?</h3></div><p>Native <code>YearlyHistory</code> <code>waterClass</code> values</p></div>
+          <div class="key-items">
+            <div class="key-item"><span class="swatch swatch-black"></span><div><strong>0 · No data</strong><small>Unavailable or masked observation</small></div></div>
+            <div class="key-item"><span class="swatch swatch-light"></span><div><strong>1 · Not water</strong><small>Classified as non-water</small></div></div>
+            <div class="key-item"><span class="swatch swatch-cyan"></span><div><strong>2 · Seasonal water</strong><small>Seasonal water class</small></div></div>
+            <div class="key-item"><span class="swatch swatch-blue"></span><div><strong>3 · Permanent water</strong><small>Permanent water class</small></div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-data" id="areas">
+      <div class="page-width">
+        <div class="section-heading heading-split">
+          <div><p class="section-kicker">04 / YEAR-BY-YEAR AREA</p><h2>Coverage, one year at a time.</h2></div>
+          <p class="section-intro-text">Area values from the supplied CSVs rotate automatically every two seconds. Pause the viewer or switch between the city and buffered study extent.</p>
+        </div>
+        <div class="data-console">
+          <div class="console-head">
+            <div><span class="console-kicker"><i></i> LIVE DATA VIEWER</span><h3 id="area-scope-title">Guwahati + 10 km surrounding extent</h3></div>
+            <div class="console-controls">
+              <div class="segmented" role="group" aria-label="Choose analysis area">
+                <button type="button" class="segmented-button" data-scope="city">Inside Guwahati</button>
+                <button type="button" class="segmented-button is-active" data-scope="buffer">+ 10 km extent</button>
+              </div>
+              <button type="button" class="round-control" id="area-pause" aria-pressed="false" aria-label="Pause yearly area viewer">Ⅱ</button>
+            </div>
+          </div>
+          <div class="year-progress-row"><div><span class="year-overline">SELECTED YEAR</span><strong id="area-year">2000</strong></div><span id="area-year-count">01 / 22</span></div>
+          <div class="year-progress"><span id="area-progress-bar"></span></div>
+          <div class="area-cards" aria-live="polite" aria-atomic="true">
+            <article class="area-card"><span class="area-card-swatch swatch-light"></span><span class="area-label" id="nonwater-label">Non-water</span><strong id="nonwater-value">—</strong><small>km²</small></article>
+            <article class="area-card area-card-cyan"><span class="area-card-swatch swatch-cyan"></span><span class="area-label">Seasonal water</span><strong id="seasonal-value">—</strong><small>km²</small></article>
+            <article class="area-card area-card-blue"><span class="area-card-swatch swatch-blue"></span><span class="area-label">Permanent water</span><strong id="permanent-value">—</strong><small>km²</small></article>
+          </div>
+          <div class="console-foot"><span id="area-source-name">Source file: guwahati_water_area_with_10km_buffer.csv</span><div class="console-foot-actions"><button type="button" class="small-text-button" id="area-next">Next year →</button><a class="text-link" id="area-csv-link" href="assets/data/guwahati_water_area_with_10km_buffer.csv" download>Download CSV ↓</a></div></div>
+        </div>
+        <details class="data-table-details"><summary>View all annual values in a table</summary><div class="table-wrap"><table id="annual-table"><thead><tr><th>Year</th><th>Non-water (km²)</th><th>Seasonal water (km²)</th><th>Permanent water (km²)</th></tr></thead><tbody></tbody></table></div></details>
+      </div>
+    </section>
+
+    <section class="section" id="change">
+      <div class="page-width">
+        <div class="section-heading">
+          <p class="section-kicker">05 / FIVE-YEAR SNAPSHOTS</p>
+          <h2>Compare area across five-year intervals.</h2>
+          <p>The supplied bar charts compare non-water, seasonal-water and permanent-water area for 2000, 2005, 2010, 2015 and 2020. They are shown separately because the city and buffer scopes have different totals.</p>
+        </div>
+        <figure class="combined-graph"><img src="assets/images/graph.png" alt="Combined bar charts comparing Guwahati city and Guwahati plus 10 kilometre surrounding extent water-class area for 2000, 2005, 2010, 2015 and 2020" loading="lazy"><figcaption>City and 10 km surrounding-extent charts are arranged side-by-side for quick comparison. Open either individual chart below to inspect its values at full size.</figcaption></figure>
+        <div class="chart-download-grid">
+          <a class="chart-download" href="assets/images/guwahati_inside_area_bar_graph.png" target="_blank" rel="noopener"><span class="chart-mini">CITY</span><span><strong>Guwahati city chart</strong><small>Open full-size PNG</small></span><span class="external-arrow">↗</span></a>
+          <a class="chart-download" href="assets/images/guwahati_10km_buffer_area_bar_graph.png" target="_blank" rel="noopener"><span class="chart-mini chart-mini-buffer">10 KM</span><span><strong>Buffered extent chart</strong><small>Open full-size PNG</small></span><span class="external-arrow">↗</span></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-seasonal" id="seasonal">
+      <div class="page-width">
+        <div class="section-heading heading-split">
+          <div><p class="section-kicker">06 / SEASONAL WATER</p><h2>One city, three seasonal windows.</h2></div>
+          <p class="section-intro-text">Seasonal GIFs animate 2000–2021. Choose a season to view its map, while the matching area summary advances year by year from the seasonal CSV.</p>
+        </div>
+        <div class="season-tabs" role="tablist" aria-label="Choose season">
+          <button role="tab" aria-selected="true" class="season-tab is-active" data-season="Summer"><span>☀</span> Summer <small>Mar–May</small></button>
+          <button role="tab" aria-selected="false" class="season-tab" data-season="Monsoon"><span>≈</span> Monsoon <small>Jun–Sep</small></button>
+          <button role="tab" aria-selected="false" class="season-tab" data-season="Winter"><span>❄</span> Winter <small>Dec–Feb</small></button>
+        </div>
+        <div class="season-layout">
+          <article class="season-map-card">
+            <div class="season-map-header"><div><span class="small-tag tag-purple" id="season-tag">SUMMER</span><h3 id="season-map-title">Summer water classification</h3></div><span class="frame-count">2000—2021</span></div>
+            <div class="gif-frame season-gif-frame"><img id="season-gif" src="assets/images/guwahati_summer_water_2000_2021.gif" alt="Summer seasonal water classification animation for Guwahati, 2000–2021"></div>
+            <div class="season-map-footer"><span>22 annual frames · looping animation</span><a id="season-gif-download" class="text-link" href="assets/images/guwahati_summer_water_2000_2021.gif" download>Download GIF ↓</a></div>
+          </article>
+          <aside class="season-stat-panel" aria-live="polite" aria-atomic="true">
+            <div class="season-stat-top"><div><span class="year-overline">CURRENT SEASON YEAR</span><strong id="season-year">2000</strong></div><span class="auto-badge"><i></i> AUTO · 2 SEC</span></div>
+            <p class="season-stat-intro">Area by derived seasonal output class</p>
+            <div class="season-value-row"><span class="season-value-swatch swatch-light"></span><span>No water</span><strong id="season-no-water">— <small>km²</small></strong></div>
+            <div class="season-value-row"><span class="season-value-swatch swatch-cyan"></span><span>Seasonal water</span><strong id="season-seasonal-water">— <small>km²</small></strong></div>
+            <div class="season-value-row"><span class="season-value-swatch swatch-blue"></span><span>Water in all valid seasonal observations</span><strong id="season-all-water">— <small>km²</small></strong></div>
+            <div class="season-progress"><span id="season-progress-bar"></span></div>
+            <div class="season-stat-bottom"><span id="season-year-count">01 / 22</span><button id="season-next" class="small-text-button" type="button">Next year →</button></div>
+            <a href="assets/data/guwahati_seasonal_water_areas_2000_2021.csv" download class="text-link season-csv-link">Download seasonal area CSV ↓</a>
+          </aside>
+        </div>
+        <details class="data-table-details seasonal-table-details"><summary>View all seasonal areas (66 year-season rows)</summary><div class="table-wrap"><table id="seasonal-table"><thead><tr><th>Year</th><th>Season</th><th>No water (km²)</th><th>Seasonal water (km²)</th><th>Water in all valid seasonal observations (km²)</th></tr></thead><tbody></tbody></table></div></details>
+      </div>
+    </section>
+
+    <section class="section section-observations" id="observations">
+      <div class="page-width">
+        <div class="section-heading heading-split">
+          <div><p class="section-kicker">07 / OBSERVATIONS</p><h2>What changed in the mapped water classes?</h2></div>
+          <p class="section-intro-text">These observations compare the mapped class areas in the supplied CSVs. Annual comparisons use 2000 and 2021; seasonal comparisons use 2001 and 2021. They describe mapped patterns, not the causes behind them.</p>
+        </div>
+
+        <div class="observation-scope-grid">
+          <article class="observation-card">
+            <div class="observation-card-heading"><span class="small-tag tag-purple">ANNUAL · CITY</span><span class="obs-years">2000 → 2021</span></div>
+            <h3>Inside Guwahati</h3>
+            <p class="observation-lede">Seasonal-water area increased, while non-water and permanent-water areas decreased slightly in the annual classification.</p>
+            <div class="observation-table-wrap"><table class="observation-table"><thead><tr><th>Class</th><th>2000<br>(km²)</th><th>2021<br>(km²)</th><th>Change<br>(km²)</th><th>Change</th></tr></thead><tbody>
+              <tr><th>Non-water</th><td>6.756</td><td>6.379</td><td class="change-negative">−0.377</td><td>−5.6%</td></tr>
+              <tr><th>Seasonal water</th><td>2.861</td><td>4.003</td><td class="change-positive">+1.142</td><td>+39.9%</td></tr>
+              <tr><th>Permanent water</th><td>0.276</td><td>0.184</td><td class="change-negative">−0.092</td><td>−33.3%</td></tr>
+            </tbody></table></div>
+            <div class="observation-callout"><strong>Observation</strong><p>Mapped seasonal-water area rose by about 40%, from 2.861 km² to 4.003 km². Permanent water had the largest relative decrease, but the absolute decrease was small (0.092 km²). The class changes alone do not explain why they occurred.</p></div>
+          </article>
+
+          <article class="observation-card">
+            <div class="observation-card-heading"><span class="small-tag tag-cyan">ANNUAL · WIDER EXTENT</span><span class="obs-years">2000 → 2021</span></div>
+            <h3>Guwahati + 10 km surrounding extent</h3>
+            <p class="observation-lede">The buffered study extent shows a large increase in mapped non-water area and decreases in both water classes.</p>
+            <div class="observation-table-wrap"><table class="observation-table"><thead><tr><th>Class</th><th>2000<br>(km²)</th><th>2021<br>(km²)</th><th>Change<br>(km²)</th><th>Change</th></tr></thead><tbody>
+              <tr><th>Non-water</th><td>79.152</td><td>121.249</td><td class="change-positive">+42.097</td><td>+53.2%</td></tr>
+              <tr><th>Seasonal water</th><td>109.127</td><td>105.858</td><td class="change-negative">−3.269</td><td>−3.0%</td></tr>
+              <tr><th>Permanent water</th><td>61.048</td><td>53.636</td><td class="change-negative">−7.412</td><td>−12.1%</td></tr>
+            </tbody></table></div>
+            <div class="observation-callout"><strong>Observation</strong><p>Mapped non-water area increased by 42.097 km² (+53.2%). Seasonal-water area decreased slightly, and permanent-water area decreased by 7.412 km². This comparison covers the wider buffered study extent; it is not a buffer-only estimate.</p></div>
+          </article>
+        </div>
+
+        <div class="observation-season-heading">
+          <p class="section-kicker">SEASONAL COMPARISON</p>
+          <h3>How did the seasonal pattern differ?</h3>
+          <p>Seasonal outputs compare three derived categories: no water in valid observations, water in some but not all valid observations, and water in every valid observation. These are custom seasonal classes derived from MonthlyHistory—not the native annual codes.</p>
+        </div>
+
+        <div class="season-observation-grid">
+          <article class="season-observation-card">
+            <div class="observation-card-heading"><span class="season-chip summer-chip">SUMMER</span><span class="obs-years">2001 → 2021</span></div>
+            <h3>March–May</h3>
+            <div class="observation-table-wrap"><table class="observation-table"><thead><tr><th>Class</th><th>2001</th><th>2021</th><th>Change</th></tr></thead><tbody>
+              <tr><th>No water</th><td>216.267</td><td>194.866</td><td class="change-negative">−21.401 (−9.9%)</td></tr>
+              <tr><th>Seasonal water</th><td>11.839</td><td>36.231</td><td class="change-positive">+24.392 (+206.0%)</td></tr>
+              <tr><th>Water in all valid observations</th><td>74.516</td><td>75.907</td><td class="change-positive">+1.391 (+1.9%)</td></tr>
+            </tbody></table></div>
+            <p class="observation-interpretation"><strong>Observation:</strong> Seasonal-water area increased substantially, from 11.839 km² to 36.231 km². Water detected in every valid monthly observation rose only slightly, while the no-water category decreased by 21.401 km².</p>
+          </article>
+
+          <article class="season-observation-card">
+            <div class="observation-card-heading"><span class="season-chip monsoon-chip">MONSOON</span><span class="obs-years">2001 → 2021</span></div>
+            <h3>June–September</h3>
+            <div class="observation-table-wrap"><table class="observation-table"><thead><tr><th>Class</th><th>2001</th><th>2021</th><th>Change</th></tr></thead><tbody>
+              <tr><th>No water</th><td>177.597</td><td>147.643</td><td class="change-negative">−29.954 (−16.9%)</td></tr>
+              <tr><th>Seasonal water</th><td>14.394</td><td>22.127</td><td class="change-positive">+7.733 (+53.7%)</td></tr>
+              <tr><th>Water in all valid observations</th><td>112.561</td><td>135.927</td><td class="change-positive">+23.366 (+20.8%)</td></tr>
+            </tbody></table></div>
+            <p class="observation-interpretation"><strong>Observation:</strong> The no-water category decreased by 29.954 km², while water in all valid monthly observations increased by 23.366 km². Seasonal-water area also increased by 53.7%.</p>
+          </article>
+
+          <article class="season-observation-card">
+            <div class="observation-card-heading"><span class="season-chip winter-chip">WINTER</span><span class="obs-years">2001 → 2021</span></div>
+            <h3>December–February</h3>
+            <div class="observation-table-wrap"><table class="observation-table"><thead><tr><th>Class</th><th>2001</th><th>2021</th><th>Change</th></tr></thead><tbody>
+              <tr><th>No water</th><td>182.106</td><td>198.251</td><td class="change-positive">+16.145 (+8.9%)</td></tr>
+              <tr><th>Seasonal water</th><td>7.180</td><td>16.053</td><td class="change-positive">+8.873 (+123.6%)</td></tr>
+              <tr><th>Water in all valid observations</th><td>81.146</td><td>81.044</td><td class="change-negative">−0.102 (−0.1%)</td></tr>
+            </tbody></table></div>
+            <p class="observation-interpretation"><strong>Observation:</strong> Winter seasonal-water area more than doubled, from 7.180 km² to 16.053 km². Water in all valid observations was nearly unchanged, while no-water area increased by 16.145 km².</p>
+          </article>
+        </div>
+
+        <div class="observation-caveat"><strong>How to interpret these totals</strong><p>These figures describe the areas reported in the provided CSVs, using their respective scopes, masks and class definitions. Class-area totals vary between years, so the results should not be read as a simple one-for-one transfer from water to land. Differences in valid-data coverage, masking, pixel area and export settings should be checked before making stronger causal claims.</p></div>
+      </div>
+    </section>
+
+    <section class="section section-method" id="discussion">
+      <div class="page-width">
+        <div class="section-heading heading-split">
+          <div><p class="section-kicker">08 / DISCUSSION & PROBLEMS FACED</p><h2>Methods, challenges and remaining limitations.</h2></div>
+          <p class="section-intro-text">This section documents the classification choices, masking decisions, visualization issues, and limitations encountered while building the annual and seasonal maps.</p>
+        </div>
+        <div class="mask-compare-grid">
+          <article class="mask-card">
+            <div class="mask-card-top"><span class="small-tag tag-neutral">SOURCE VALUES</span><span class="frame-count">3 VALUES</span></div>
+            <h3>Original monthly layer</h3>
+            <p>The JRC MonthlyHistory <code>water</code> band uses values 0, 1 and 2. These are the source categories, not the derived seasonal categories.</p>
+            <div class="gif-frame"><img src="assets/images/guwahati_3pixel_mask.gif" alt="Three-state monthly-mask comparison GIF supplied with the project" loading="lazy"></div>
+            <div class="compact-legend"><span><i class="swatch swatch-black"></i>0 · No data</span><span><i class="swatch swatch-white-outline"></i>1 · Not water</span><span><i class="swatch swatch-blue"></i>2 · Water</span></div>
+          </article>
+          <article class="mask-card mask-card-highlight">
+            <div class="mask-card-top"><span class="small-tag tag-cyan">DERIVED SEASON</span><span class="frame-count">4 DISPLAY STATES</span></div>
+            <h3>Custom seasonal output</h3>
+            <p>The seasonal output uses three reclassified values plus a masked/no-valid-data state. It is not a new native four-class JRC monthly dataset.</p>
+            <div class="gif-frame"><img src="assets/images/guwahati_4pixel_mask.gif" alt="Four-state displayed seasonal output GIF supplied with the project" loading="lazy"></div>
+            <div class="compact-legend"><span><i class="swatch swatch-black"></i>No valid data</span><span><i class="swatch swatch-white-outline"></i>Class 1 · No water</span><span><i class="swatch swatch-cyan"></i>Class 2 · Some water</span><span><i class="swatch swatch-blue"></i>Class 3 · Water in every valid month</span></div>
+          </article>
+        </div>
+
+        <article class="problem-at-a-glance">
+          <div class="problem-at-a-glance-label">THE PROBLEM — EXPLAINED HERE</div>
+          <h3>Why do the two maps show different class states?</h3>
+          <p><strong>The original monthly JRC band has three numeric values:</strong> 0 = no data, 1 = not water, and 2 = water. The annual JRC <code>waterClass</code> band has four codes: 0 = no data, 1 = not water, 2 = seasonal water, and 3 = permanent water. Those class codes are not interchangeable.</p>
+          <p><strong>The custom seasonal map is derived from the monthly observations.</strong> It counts valid observations and water detections to assign class 1 when no valid month shows water, class 2 when water appears in some but not all valid months, and class 3 when every valid month shows water. If no valid monthly observations exist, the pixel stays masked and is displayed in black. That is three derived classes plus a black no-data display state—not a native four-value MonthlyHistory dataset.</p>
+          <p>This explains the difference visible in the comparison GIFs. The annual valid-data mask is a separate step: it restricts seasonal output to locations where the matching annual image has a positive class, which can also exclude some monthly-valid pixels.</p>
+        </article>
+
+        <div class="discussion-content">
+          <article class="discussion-card">
+            <span class="discussion-index">A</span><div><h3>What the two JRC datasets encode</h3>
+              <div class="encoding-grid">
+                <div class="encoding-panel"><h4>YearlyHistory · <code>waterClass</code></h4><ul class="code-list"><li><span class="swatch swatch-black"></span><span><b>0 — No data</b><small>No classified annual value</small></span></li><li><span class="swatch swatch-light"></span><span><b>1 — Not water</b><small>Annual non-water class</small></span></li><li><span class="swatch swatch-cyan"></span><span><b>2 — Seasonal water</b><small>Seasonal water class</small></span></li><li><span class="swatch swatch-blue"></span><span><b>3 — Permanent water</b><small>Permanent water class</small></span></li></ul></div>
+                <div class="encoding-panel"><h4>MonthlyHistory · <code>water</code></h4><ul class="code-list"><li><span class="swatch swatch-black"></span><span><b>0 — No data</b><small>Monthly no-data value, where represented</small></span></li><li><span class="swatch swatch-light"></span><span><b>1 — Not water</b><small>Monthly non-water class</small></span></li><li><span class="swatch swatch-blue"></span><span><b>2 — Water</b><small>Water detected in that month</small></span></li></ul></div>
+              </div>
+              <p class="dataset-code-explainer">The annual layer has four numeric class codes (0–3). The monthly band has three numeric codes (0–2). Their code meanings are different, so the colours and labels must be interpreted by dataset.</p>
+            </div>
+          </article>
+          <article class="discussion-card"><span class="discussion-index">B</span><div><h3>How the seasonal solution works</h3><p><strong>For each year and season, I selected the monthly images that belong to that season.</strong> For example, Summer uses March, April and May. I then compared the three observations pixel by pixel to see whether each location was classified as water or not water in each month. Based on that pattern, I assigned each location to one of three seasonal classes; locations with no valid observations stayed black. That gives four visible output states in the final map:</p>
+            <div class="rule-table"><div><span class="rule-number">1</span><span><b>Class 1 · White/light grey</b><small>No water was detected in any valid monthly observation (<code>water_count = 0</code>).</small></span></div><div><span class="rule-number rule-cyan">2</span><span><b>Class 2 · Cyan</b><small>Water was detected in some, but not all, valid monthly observations.</small></span></div><div><span class="rule-number rule-blue">3</span><span><b>Class 3 · Blue</b><small>Every valid monthly observation was water.</small></span></div><div><span class="rule-number rule-black">—</span><span><b>Black · No valid observations</b><small>The output is masked when there are no valid monthly observations, so the rendered map background remains black.</small></span></div></div>
+            <div class="example-box"><strong>Example: March = 1, April = 2, May = 1</strong><p>There are three valid observations and one water observation. The output is class 2 (cyan), because water appears in some but not all valid months. If all three values were 1, the output would be class 1; if all three valid values were 2, it would be class 3.</p></div>
+            <p class="important-note"><strong>Important clarification:</strong> “three to four” refers to the number of class/display states, not the physical size or number of satellite pixels. The original monthly dataset still has source values 0, 1 and 2. The seasonal workflow compares the selected months for each pixel and creates a new output with classes 1, 2 and 3; pixels with no valid observations remain masked and appear black. The final map therefore shows four display states, but it is not a native four-class MonthlyHistory dataset.</p>
+          </div></article>
+          <article class="discussion-card"><span class="discussion-index">C</span><div><h3>Why the annual valid-data mask was used</h3><p>After building the seasonal classes, the workflow retrieves the corresponding annual image and applies <code>annual_class.gt(0)</code>. This keeps seasonal output only where the annual classification has a valid class (1, 2 or 3). Annual class 0 and masked annual pixels are excluded.</p><p>The mask aligns the seasonal display with the annual product's valid-data footprint and prevents the seasonal summary from being shown where the annual map marks no data. It is an intentional analysis mask—not another seasonal class—and it can exclude a pixel that happens to have a valid monthly observation if the annual layer is invalid there.</p></div></article>
+          <article class="discussion-card"><span class="discussion-index">D</span><div><h3>The cross-line artefact that remained</h3><p>A narrow cross-line/stripe-like visual glitch remained visible in some map outputs even after the main classification, masking and rendering workflow was in place. It was not fully resolved during this project.</p><p>Its cause has not been confirmed from the supplied output alone. Raster-grid alignment, export/resampling behaviour, or source mask boundaries are possible avenues to investigate, not established explanations. The line should therefore be documented as a processing/visualisation limitation rather than interpreted as a real water feature.</p><p class="next-step-note"><strong>Further check:</strong> compare the exported raster against the original Earth Engine image using the same projection and pixel grid, then inspect the affected rows/columns before adding map labels or boundary overlays.</p></div></article>
+          <article class="discussion-card"><span class="discussion-index">E</span><div><h3>Other limitations to keep in mind</h3><ul class="plain-bullets"><li>Black represents no-data/masked cells in the map styling; it does not mean dry land.</li><li>Annual permanent-water and custom seasonal “water in all valid observations” are different classes derived from different logic. They should not be treated as identical measures.</li><li>The 10 km buffered extent is a broader study frame. The CSV values describe the area represented in each exported scope; do not interpret buffered totals as buffer-only area unless the city footprint has been subtracted.</li><li>Area totals depend on the clipping geometry, masks, image scale, and raster export settings.</li></ul></div></article>
+        </div>
+        <div class="source-strip"><div><span class="source-mark">JRC</span><div><strong>Dataset documentation</strong><small>Global Surface Water · Version 1.4 · Source: EC JRC/Google</small></div></div><div class="source-links"><a href="https://developers.google.com/earth-engine/datasets/catalog/JRC_GSW1_4_YearlyHistory" target="_blank" rel="noopener">YearlyHistory ↗</a><a href="https://developers.google.com/earth-engine/datasets/catalog/JRC_GSW1_4_MonthlyHistory" target="_blank" rel="noopener">MonthlyHistory ↗</a></div></div>
+        <p class="citation-line">Dataset citation: Pekel et al. (2016), “High-resolution mapping of global surface water and its long-term changes,” <em>Nature</em> 540, 418–422. <a href="https://doi.org/10.1038/nature20584" target="_blank" rel="noopener">https://doi.org/10.1038/nature20584 ↗</a></p>
+      </div>
+    </section>
+
+    <section class="section section-downloads" id="downloads">
+      <div class="page-width">
+        <div class="section-heading heading-split"><div><p class="section-kicker">09 / DOWNLOADS</p><h2>Take the outputs with you.</h2></div><p class="section-intro-text">All links below point to the files packaged with this website. Download the charts, animations, or CSV data for further analysis.</p></div>
+        <div class="download-grid">
+          <a class="download-card" href="assets/data/guwahati_water_area.csv" download><span class="download-icon">CSV</span><span><strong>Guwahati yearly water area</strong><small>Inside city · 2000–2021</small></span><span class="download-arrow">↓</span></a>
+          <a class="download-card" href="assets/data/guwahati_water_area_with_10km_buffer.csv" download><span class="download-icon">CSV</span><span><strong>Water area with 10 km extent</strong><small>Buffered scope · 2000–2021</small></span><span class="download-arrow">↓</span></a>
+          <a class="download-card" href="assets/data/guwahati_seasonal_water_areas_2000_2021.csv" download><span class="download-icon">CSV</span><span><strong>Seasonal water areas</strong><small>66 year-season rows</small></span><span class="download-arrow">↓</span></a>
+          <a class="download-card" href="assets/images/graph.png" download><span class="download-icon icon-png">PNG</span><span><strong>Five-year area graphs</strong><small>City + buffered extent</small></span><span class="download-arrow">↓</span></a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer"><div class="page-width footer-inner"><a class="brand brand-footer" href="#top"><span class="brand-mark"><svg viewBox="0 0 40 40"><path d="M20 4C16 11 8 18 8 25a12 12 0 0 0 24 0C32 18 24 11 20 4Z" fill="currentColor"/><path d="M12 25c2 4 5 5 9 4" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/></svg></span><span><strong>Guwahati</strong><small>WATER ATLAS</small></span></a><p>JRC Global Surface Water · Guwahati, Assam · 2000–2021</p><a href="#top" class="back-top">Back to top ↑</a></div><div class="page-width footer-note">Student remote-sensing project showcase. Results should be interpreted with the dataset classes, masks and processing limitations described above.</div></footer>
+  <script src="script.js"></script>
+</body>
+</html>
